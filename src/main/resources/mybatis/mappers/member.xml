@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+	<!-- 정예린 박가혜 -->
+
+	<insert id="insert" parameterType="memberVo">
+		<![CDATA[	
+			insert into MB (MB_NO, MB_DSTNCT, MB_NM, NKNM, IDEN, PW, SEX, MYSELF_AUTHZ_YN, INSRD_DD, WTHDR_DD)
+			values (null, '관리자',#{mbNm }, #{nknm },#{iden },password(#{pw }),#{sex },'Y',date_format(now(),'%Y%m%d'),'99991231')
+		]]>
+	</insert>
+
+
+	<select id="getByIden" parameterType="string" resultType="memberVo">
+	<![CDATA[
+	
+		select * 
+		from MB 
+		where IDEN=#{iden }		
+	]]>
+	</select>
+
+	<select id="getByLoginInfo" parameterType="map" resultType="memberVo">  
+		<![CDATA[
+		select MB_NO as "mbNo",IDEN as "iden",MB_DSTNCT as "mbDstnct",NKNM as "nknm" 
+		from mb 
+		where IDEN=#{iden } 
+		and PW=password(#{pw })
+		]]>
+	</select>
+	
+	
+	<select id="countNotiOrganz" resultType="resrchAcrsltVo">  
+		<![CDATA[
+		select ORGNZ_DSTNCT orgnzNm,count(*) orgnzNo
+		from organz
+		group by ORGNZ_DSTNCT
+		union
+		select concat(SLCTN_NOTI_DSTNCT,' 모집공고'), count(*)
+		from slctn_noti
+		group by SLCTN_NOTI_DSTNCT;
+		]]>
+	</select>
+	
+	<select id="getNewNoti" resultType="notiVo">  
+		<![CDATA[
+		select s.SLCTN_NOTI_NO slctnNotiNo, s.SLCTN_NOTI_DSTNCT slctnNotiDstnct, s.SLCTN_TITLE slctnTitle, o.ORGNZ_FULL_NM orgnzFullNm, o.ORGNZ_NO orgnzNo, s.NOTI_REGST_DT notiRegstDt
+		from slctn_noti s, organz o
+		where s.ORGNZ_NO = o.ORGNZ_NO
+		order by 6 desc
+		limit 10;
+		]]>
+	</select>
+	
+	<select id="getNewOrganz" resultType="notiVo">  
+		<![CDATA[
+		select ORGNZ_NO orgnzNo, ORGNZ_DSTNCT slctnNotiDstnct, if(ORGNZ_DSTNCT='연구실',ORGNZ_NM,ORGNZ_FULL_NM) orgnzFullNm
+		from organz
+		order by 1 desc
+		limit 10;
+		]]>
+	</select>
+
+
+
+</mapper>

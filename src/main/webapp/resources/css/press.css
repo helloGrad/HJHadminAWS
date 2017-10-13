@@ -1,0 +1,102 @@
+@charset "UTF-8";
+body {
+    background-color: rgb(255, 255, 255);
+    padding-top: 3.5em;
+}
+
+.w3-lobster {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1300px;
+    }
+}
+
+.main-banner {
+    box-shadow: 5px 5px 5px rgba(51, 26, 0, 0.3), -1px -1px 10px rgba(102, 53, 0, 0.4);
+    margin-bottom: 1.5em;
+    background-color: white;
+}
+
+.board-answer {
+    background-color: rgb(242, 245, 247);
+}
+
+.bar-deco {
+    text-decoration: none;
+    letter-spacing: 4px;
+}
+
+.ad-title {
+    max-height: 20em;
+    object-fit: cover;
+}
+
+.navi-background {
+    background-color: rgba(238, 236, 234, 0.95);
+}
+#map {
+    height: 400px;
+    width: 100%;
+}
+.humanties{
+    z-index: 1;
+    background-image: url(../images/humanities.jpg);
+    background-size: cover;
+}
+.socialscience {
+    z-index: 1;
+    background-image: url(../images/social-science.jpg);
+    background-size: cover;
+}
+.naturalscience {
+    z-index: 1;
+    background-image: url(../images/natural-science.jpeg);
+    background-size: cover;
+}
+.engineering {
+    z-index: 1;
+    background-image: url(../images/Engineering.jpg);
+    background-size: cover;
+}
+.medicine {
+    z-index: 1;
+    background-image: url(../images/medicine.jpg);
+    background-size: cover;
+}
+.ocean{
+    z-index: 1;
+    background-image: url(../images/ocean.jpeg);
+    background-size: cover;
+}
+.art {
+    z-index: 1;
+    background-image: url(../images/art-education.jpg);
+    background-size: cover;
+}
+.interdisciplinary {
+    z-index: 1;
+    background-image: url(../images/interdisciplinary.jpg);
+    background-size: cover;
+}
