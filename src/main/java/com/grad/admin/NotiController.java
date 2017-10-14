@@ -1,5 +1,6 @@
 package com.grad.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,10 @@ import com.grad.admin.service.ApndngFileService;
 import com.grad.admin.service.NotiService;
 import com.grad.admin.vo.ApndngFileVo;
 import com.grad.admin.vo.CodeForm;
+import com.grad.admin.vo.CodeVo;
 import com.grad.admin.vo.NotiVo;
+
+import net.sf.json.JSONArray;
 
 @Controller
 @RequestMapping("/noti")
@@ -24,12 +28,9 @@ public class NotiController {
 
 	@Autowired
 	NotiService notiService;
-	
-	
+
 	@Autowired
 	ApndngFileService apndngFileService;
-	
-	
 
 	/*
 	 * 허규준, 모집공고 리스트 불러오기
@@ -84,40 +85,36 @@ public class NotiController {
 	@Auth(role = Auth.Role.ADMIN)
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insertNoti(@ModelAttribute NotiVo notiVo, @RequestParam String type,
-			@ModelAttribute CodeForm codeForm, @RequestParam(value = "attachFile", required = false) MultipartFile[] attachFile,
+			@ModelAttribute CodeForm codeForm,
+			@RequestParam(value = "attachFile", required = false) MultipartFile[] attachFile,
 			@RequestParam(value = "cdlist", required = true, defaultValue = "") List<String> cdlist) {
 
-		
-		if(type.equals("연구실")) {
-			type="lab";
-		}else if(type.equals("대학원")) {
-			type="grad";
+		if (type.equals("연구실")) {
+			type = "lab";
+		} else if (type.equals("대학원")) {
+			type = "grad";
 		}
-		
-		System.out.println(cdlist);
-		
+
 		notiService.insertNoti(notiVo, type);
 
 		int lastId = notiService.lastInsertId();
 
 		if (codeForm == null) {
-			
+
 		} else {
-			notiService.setNotiInfo(lastId,codeForm);
+			notiService.setNotiInfo(lastId, codeForm);
 		}
-		
-//		if (cdlist.size() != 0) {
-//			notiService.setNotiInfo(lastId, cdlist);
-//		}
-		
+
+		// if (cdlist.size() != 0) {
+		// notiService.setNotiInfo(lastId, cdlist);
+		// }
+
 		/*
 		 * 박가혜, 모집공고 파일첨부 기능
-		 */	
-		
+		 */
+
 		ApndngFileVo vo = null;
-		
-		
-		
+
 		if (attachFile != null) {
 			for (int i = 0; i < attachFile.length; i++) {
 
@@ -140,21 +137,81 @@ public class NotiController {
 	@Auth(role = Auth.Role.ADMIN)
 	@RequestMapping("/update")
 	public String notiDetail(@RequestParam("no") int no, @RequestParam("tabnm") String tabnm, Model model) {
+		NotiVo vo = notiService.getNoti(tabnm, no);
 
-		model.addAttribute("vo", notiService.getNoti(tabnm, no));
-		System.out.println(notiService.getNoti(tabnm, no));
+		model.addAttribute("fileList", apndngFileService.getFileList(vo.getSlctnNotiNo().intValue(), "모집공고"));
+		System.out.println(apndngFileService.getFileList(vo.getSlctnNotiNo().intValue(), "모집공고"));
+		model.addAttribute("vo", vo);
+
+		JSONArray jsonArray = new JSONArray();
+
+		List<CodeVo> codeList = new ArrayList<CodeVo>();
+
 		if (tabnm.equals("대학원")) {
 			tabnm = "grad";
+			codeList = notiService.getNotiInfo(no, "학문");
 		} else if (tabnm.equals("연구실")) {
 			tabnm = "lab";
+			codeList = notiService.getNotiInfo(no, "연구분야");
 		}
+
+		model.addAttribute("codeList", jsonArray.fromObject(codeList));
 
 		return "/noti/update" + tabnm + "2";
 	}
 
 	@Auth(role = Auth.Role.ADMIN)
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String notiDetail(@ModelAttribute NotiVo notiVo, @RequestParam("tabnm") String tabnm) {
+	public String notiDetail(@ModelAttribute NotiVo notiVo, @RequestParam("tabnm") String tabnm,
+			@RequestParam(value = "attachFile", required = false) MultipartFile[] attachFile,
+			@ModelAttribute("codeForm") CodeForm codeForm) {
+
+		List<String> infoList = new ArrayList<String>();
+		int index = 0;
+
+		if (tabnm.equals("대학원")) {
+			tabnm = "grad";
+		} else if (tabnm.equals("연구실")) {
+			tabnm = "lab";
+		}
+
+
+		ApndngFileVo vo = null;
+
+		if (attachFile != null) {
+			for (int i = 0; i < attachFile.length; i++) {
+
+				if (!attachFile[i].isEmpty()) {
+					apndngFileService.restore(attachFile[i]);
+					vo = apndngFileService.getFileVo();
+					vo.setPrntsDstnct("모집공고");
+					vo.setPrntsNo(notiVo.getSlctnNotiNo().intValue());
+					apndngFileService.insert(vo);
+				}
+			}
+		}
+
+		if (codeForm.getCodes() != null) {
+
+
+			for (int i = 0; i < codeForm.getCodes().size(); i++) {
+
+				if (codeForm.getCodes().get(i).getCdId() == null) {
+
+				} else {
+
+					infoList.add(index, codeForm.getCodes().get(i).getCdId());
+					index++;
+				}
+			}
+
+			notiService.deleteNotiInfo(notiVo.getSlctnNotiNo());
+			notiService.setNotiInfo(notiVo.getSlctnNotiNo(), infoList);
+		} else if (codeForm.getCodes() == null) {
+			notiService.deleteNotiInfo(notiVo.getSlctnNotiNo());
+		}
+		
+		
 
 		notiService.updateNoti(tabnm, notiVo);
 

@@ -217,13 +217,6 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <div id="filetable" cellpadding="5" cellspacing="0">
-                                    <label name="tr_attach_file"><i class="far fa-file-image fa-2x"></i> </label>
-                                    <Br>
-                                        <input id="file" type="file" name="attachFile" multiple/>
-
-                                </div>
-                                <div id='apndngfiles'></div>
                                 <br>
                                 <button type="submit" class="w3-button w3-block w3-border w3-round-large w3-margin-bottom w3-large"
                                         style="letter-spacing: 2px;">입력

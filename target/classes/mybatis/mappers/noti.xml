@@ -139,6 +139,32 @@
 			insert into slctn_noti_info (SLCTN_NOTI_NO, CD_ID ) values (#{slctnNotiNo},#{cdId});
 		]]>
 	</insert>
+	
+	
+	
+	
+		
+	<!-- 정예린 -->
+	<select id="selectNotiInfo" resultType="codeVo"
+		parameterType="map">
+      <![CDATA[
+      select s.slctn_Noti_No slctnNotiNo,s.CD_ID cdId,c.CD_NM cdNm,CD_DSTNCT cdDstnct
+      from slctn_noti_info s,CD c
+      where s.CD_ID=c.CD_ID 
+      and s.slctn_Noti_No=#{no}
+      and c.CD_DSTNCT = #{type } 
+      ]]>
+	</select>
+	
+		<!-- 정예린 -->
+	<delete id="deleteNotiInfo" parameterType="Long">
+	<![CDATA[
+	
+		delete from slctn_noti_info where slctn_noti_no=#{slctnNotiNo };
+		
+	]]>
+	</delete>
+	
 
 
 

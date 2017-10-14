@@ -264,20 +264,17 @@
 							</div>
 							<div class="checkbox">
 								<label class="btn-lg btn-default btn-block"> <input
-									name="lrstyJoingfeeSuprtYn" type="checkbox" value="Y">학회
-									참가비 지원 여부
+									name="lrstyJoingfeeSuprtYn" type="checkbox" value="Y">학회 참가비 지원 여부
 								</label>
 							</div>
 							<div class="checkbox">
 								<label class="btn-lg btn-default btn-block"> <input
-									name="resrchTaskJoingYn" type="checkbox" value="Y">연구
-									과제 참가 여부
+									name="resrchTaskJoingYn" type="checkbox" value="Y">연구 과제 참가 여부
 								</label>
 							</div>
 							<div class="checkbox">
 								<label class="btn-lg btn-default btn-block"> <input
-									name="stdtrOpptySuprtYn" type="checkbox" value="Y">연수기회
-									지원 여부
+									name="stdtrOpptySuprtYn" type="checkbox" value="Y">연수기회 지원 여부
 								</label>
 							</div>
 							<div class="checkbox">
@@ -301,8 +298,7 @@
 								</label>
 							</div>
 
-							<button type="submit" class="btn btn-primary web-volunteer">모집공고
-								등록</button>
+							<button type="submit" class="btn btn-primary web-volunteer">모집공고 등록</button>
 				</form>
 			</div>
 		</div>

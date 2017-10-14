@@ -118,6 +118,10 @@ public class ApndngFileService {
 		return apndngFileDao.getFileList(map);
 	}
 	
+	public boolean deleteFile(int no) {
+		return apndngFileDao.deleteFile(no);
+	}
+	
 	
 
 }

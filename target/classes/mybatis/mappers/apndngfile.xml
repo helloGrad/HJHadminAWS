@@ -28,5 +28,11 @@
 		and PRNTS_DSTNCT=#{type};
 		]]>
 	</select>
+	
+	<delete id="deleteFile">
+		<![CDATA[
+		delete from apndng_file where apndng_file_no = #{no};
+		]]>
+	</delete>
 
 </mapper>

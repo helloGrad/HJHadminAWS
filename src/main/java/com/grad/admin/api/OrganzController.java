@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.grad.admin.dto.JSONResult;
+import com.grad.admin.service.ApndngFileService;
 import com.grad.admin.service.OrganzService;
+import com.grad.admin.vo.NotiVo;
 import com.grad.admin.vo.OrganzVo;
 
 @Controller("orgnzAPIController")
@@ -18,13 +20,24 @@ public class OrganzController {
 
 	@Autowired
 	OrganzService organzService;
+	
+	@Autowired
+	ApndngFileService apndngFileService;
 
 	@ResponseBody
 	@RequestMapping(value = "/getlist")
 	public JSONResult getList(@RequestParam("type") String type, @RequestParam("start") String start,
 			@RequestParam("end") String end) {
-
 		List<OrganzVo> list = organzService.getListByChar(type, start, end);
+		return JSONResult.success(list);
+
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getnotilist")
+	public JSONResult getNotiList(@RequestParam("type") String type, @RequestParam("start") String start,
+			@RequestParam("end") String end) {
+		List<NotiVo> list = organzService.getNotiListByChar(type, start, end);
 		return JSONResult.success(list);
 
 	}
@@ -43,6 +56,14 @@ public class OrganzController {
 	@RequestMapping(value = "/getcode2")
 	public JSONResult getCode2(@RequestParam String type) {
 		return JSONResult.success(organzService.getCode(type));
+
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/deletefile")
+	public JSONResult deleteFile(@RequestParam int no) {
+		return JSONResult.success(apndngFileService.deleteFile(no));
 
 	}
 

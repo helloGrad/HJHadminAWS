@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.grad.admin.vo.CodeVo;
+import com.grad.admin.vo.NotiVo;
 import com.grad.admin.vo.OrganzVo;
 import com.grad.admin.vo.ResrchAcrsltVo;
 
@@ -119,7 +120,10 @@ public class OrganzDao {
 	public List<OrganzVo> getListByChar(Map<String, Object> map) {
 		return sqlSession.selectList("organz.getListByChar", map);
 	}
-
+	
+	public List<NotiVo> getNotiListByChar(Map<String, Object> map) {
+		return sqlSession.selectList("organz.getNotiListByChar", map);
+	}
 
 	public List<OrganzVo> getResultList(Map<String, Object> map) {
 		if (map.get("type2") != null) {
@@ -149,6 +153,8 @@ public class OrganzDao {
 		
 		return sqlSession.selectList("organz.getCode", dstnct);
 	}
+
+	
 
 
 

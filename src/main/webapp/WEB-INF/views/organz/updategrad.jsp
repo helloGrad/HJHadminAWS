@@ -44,25 +44,30 @@
 
 		if (type2 === '학과') {
 			
-			$("#cdNmList")
-			.append(
-					"<div id='"
+			if (codeList1.length != 0) {
+				
+				console.log("null아닐 때");
+				console.log(codeList1.length);
+				$("#cdNmList")
+						.append(
+								"<div id='"
 							+ codeList1[0].cdId
 							+ "'><span id='cdNm' name='cdNm' val='"
 							+ codeList1[0].cdNm
 							+ "'>"
-							+ codeList1[0].cdNm
-							+ "</span>"
-							+ "<button id='deleteBtn' type='button' onclick='clickDelete(\""
-							+ codeList1[0].cdId
-							+ "\");' class='btn'>X</button>"
-							+ "<input type='hidden' name='codes[" + 0
+										+ codeList1[0].cdNm
+										+ "</span>"
+										+ "<button id='deleteBtn' type='button' onclick='clickDelete(\""
+										+ codeList1[0].cdId
+										+ "\");' class='btn'>X</button>"
+										+ "<input type='hidden' name='codes[" + 0
 							+ "].cdId' value='" + codeList1[0].cdId + "'>"
-							+ "<input type='hidden' name='codes[" + 0
+										+ "<input type='hidden' name='codes[" + 0
 							+ "].cdNm' value='" + codeList1[0].cdNm + "'>"
-							+ "</div>")
+										+ "</div>")
 				index++;
 				checkList.push(codeList1[0].cdNm);
+			}
 				
 			for (var i = 0; i < codeList2.length; i++) {
 				$("#cdNmList2")
@@ -191,7 +196,7 @@
                                 <input type="text" class="w3-input" id="engOrgnzNm" name="engOrgnzNm" value="${vo.engOrgnzNm }">
                                 <br>
                                 <label>상징색상명:</label>
-                                <input type="text" class="w3-input" id="symbolColorNm" name="symbolColorNm" value="${vo.engOrgnzNm }">
+                                <input type="text" class="w3-input" id="symbolColorNm" name="symbolColorNm" value="${vo.symbolColorNm }">
                                 <br>
                                 <label>홈페이지주소:</label>
                                 <input type="text" class="w3-input" id="hmpageUrl" name="hmpageUrl" value="${vo.hmpageUrl }">
@@ -338,13 +343,6 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <div id="filetable" cellpadding="5" cellspacing="0">
-                                    <label name="tr_attach_file"><i class="far fa-file-image fa-2x"></i> </label>
-                                    <Br>
-                                        <input id="file" type="file" name="attachFile" multiple/>
-
-                                </div>
-                                <div id='apndngfiles'></div>
                                 <br>
                                 <button type="submit" class="w3-button w3-block w3-border w3-round-large w3-margin-bottom w3-large"
                                         style="letter-spacing: 2px;">입력

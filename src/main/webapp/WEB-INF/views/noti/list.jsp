@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/press.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/organzjs/organzlist.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/notijs/notilist.js"></script>
 <style>
         .adminbody {
             background-color: rgb(250, 250, 252);
@@ -45,6 +45,7 @@
                     <a href="" class="w3-margin-left w3-text-red" style="letter-spacing: 0.1em;">모집공고 - ${notiList[0].slctnNotiDstnct}</a>
                 </h5>
             </div>
+            <input id='type' type='hidden' value="${notiList[0].slctnNotiDstnct}">
 
             <div class="w3-large w3-card-2 w3-white w3-padding-16 w3-margin-bottom">
                 <div class="w3-row">

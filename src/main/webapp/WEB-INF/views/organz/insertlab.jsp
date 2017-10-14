@@ -196,7 +196,7 @@
                                             <input class="w3-input" id="organzinput" name="orgnzFullNm" type="text"
                                                    readonly>
                                             <br>
-                                            <button type="button" class="w3-button w3-blue" onclick="openOrganzSearch('학과')">기관검색하기
+                                            <button type="button" class="w3-button w3-blue w3-block w3-round" onclick="openOrganzSearch('학과')">기관검색하기
                                             </button>
                                         </div>
                                     </div>

@@ -20,12 +20,10 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<c:if test="${vo.orgnzDstnct=='학과' }">
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/organzjs/insertgrad.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/organzjs/insertgrad2.js"></script>
-</c:if>
 
 
 
@@ -68,6 +66,7 @@
 										+ index2 + "].cdNm' value='"
 										+ codeList3[i].cdNm + "'>"
 										+ "</div>")
+										index++;
 				checkList.push(codeList3[i].cdNm);
 				
 		}
@@ -393,10 +392,7 @@ a {
 		src="${pageContext.request.contextPath}/resources/js/search.js"></script>
 
 
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/js/organzjs/insertgrad.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/js/organzjs/insertgrad2.js"></script>
+
 
 </body>
 

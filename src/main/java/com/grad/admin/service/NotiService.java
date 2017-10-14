@@ -75,5 +75,31 @@ public class NotiService {
 		}
 
 	}
+	
+	
+	
+	public List<CodeVo> getNotiInfo(int no, String type) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("no", no);
+		map.put("type", type);
+		return notiDao.selectNotiInfo(map);
+	}
+
+	public void deleteNotiInfo(Long slctnNotiNo) {
+		notiDao.deleteNotiInfo(slctnNotiNo);
+	}
+
+	public void setNotiInfo(Long lastId, List<String> infoList) {
+		
+		CodeVo codeVo = new CodeVo();
+		codeVo.setSlctnNotiNo(lastId);
+
+		for (int i = 0; i < infoList.size(); i++) {
+
+			codeVo.setCdId(infoList.get(i));
+			notiDao.setNotiInfo(codeVo);
+		}
+		
+	}
 
 }

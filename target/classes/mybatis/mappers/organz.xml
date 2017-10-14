@@ -21,7 +21,7 @@
 		select orgnz_no orgnzNo, orgnz_nm orgnzNm, ENG_ORGNZ_NM engOrgnzNm,
 		ORGNZ_DSTNCT orgnzDstnct, HMPAGE_URL hmpageUrl, TEL_NO telNo, FAX_NO
 		faxNo, ADDR addr, DETAIL_ADDR detailAddr, PRNTS_ORGNZ_NO prntsOrgnzNo, orgnz_full_nm orgnzFullNm,
-		MAP_PROF_NM mapProfNm, LAB_INTRO labIntro, RSRCHR_INFO_TEXT rsrchrInfoText, HMNBRD_DSTNCT hmnbrdDstnct
+		MAP_PROF_NM mapProfNm, LAB_INTRO labIntro, RSRCHR_INFO_TEXT rsrchrInfoText, HMNBRD_DSTNCT hmnbrdDstnct, SYMBOL_COLOR_NM symbolColorNm
 		from organz
 		where ORGNZ_DSTNCT=#{type}
 		and orgnz_no = #{no}
@@ -34,7 +34,7 @@
 		select o1.orgnz_no orgnzNo, o1.orgnz_nm orgnzNm, o1.ENG_ORGNZ_NM engOrgnzNm, o1.ORGNZ_DSTNCT orgnzDstnct, o1.HMPAGE_URL hmpageUrl, 
 		o1.TEL_NO telNo, o1.FAX_NO faxNo, o1.ADDR addr, o1.DETAIL_ADDR detailAddr, 
 		o1.PRNTS_ORGNZ_NO prntsOrgnzNo, o2.orgnz_full_nm orgnzFullNm, o1.MAP_PROF_NM mapProfNm, o1.LAB_INTRO labIntro, o1.RSRCHR_INFO_TEXT rsrchrInfoText, 
-		o1.HMNBRD_DSTNCT hmnbrdDstnct, o1.abolt_yn aboltYn, o1.GRSCH_DSTNCT grschDstnct
+		o1.HMNBRD_DSTNCT hmnbrdDstnct, o1.abolt_yn aboltYn, o1.GRSCH_DSTNCT grschDstnct, o1.SYMBOL_COLOR_NM symbolColorNm
 		from organz o1, organz o2
 		where o1.ORGNZ_DSTNCT=#{type}
 		and o1.orgnz_no = #{no}
@@ -48,7 +48,7 @@
 		<![CDATA[
 		select o1.orgnz_no orgnzNo, o1.orgnz_nm orgnzNm, o1.ENG_ORGNZ_NM engOrgnzNm, o1.ORGNZ_DSTNCT orgnzDstnct, o1.HMPAGE_URL hmpageUrl, o1.TEL_NO telNo, o1.FAX_NO faxNo, o1.ADDR addr, 
 		o1.DETAIL_ADDR detailAddr, o1.PRNTS_ORGNZ_NO prntsOrgnzNo, o1.MAP_PROF_NM mapProfNm, o1.LAB_INTRO labIntro, o1.RSRCHR_INFO_TEXT rsrchrInfoText, o1.HMNBRD_DSTNCT hmnbrdDstnct, 
-		o2.orgnz_full_nm orgnzFullNm
+		o2.orgnz_full_nm orgnzFullNm, o1.SYMBOL_COLOR_NM symbolColorNm 
 		from organz o1, organz o2
 		where o1.ORGNZ_DSTNCT='연구실'
 		and o1.orgnz_no = #{no}
@@ -94,10 +94,10 @@
 	<select id="selectOrganzInfo2" resultType="codeVo"
 		parameterType="map">
       <![CDATA[
-      select o.ORGNZ_NO orgnzNo,o.CD_ID cdId,c.CD_NM cdNm,CD_DSTNCT cdDstnct
+      select o.ORGNZ_NO orgnzNo, o.CD_ID cdId, c.CD_NM cdNm, CD_DSTNCT cdDstnct
       from organz_info o,CD c
       where o.CD_ID=c.CD_ID 
-      and o.ORGNZ_NO=#{no}
+      and o.ORGNZ_NO = #{no}
       and c.CD_DSTNCT = #{type } 
       ]]>
 	</select>
@@ -174,8 +174,14 @@
 		<![CDATA[
 		update organz
 		set HMNBRD_DSTNCT=#{hmnbrdDstnct}, ORGNZ_DSTNCT=#{orgnzDstnct}, ORGNZ_NM=#{orgnzNm}, ENG_ORGNZ_NM=#{engOrgnzNm}, HMPAGE_URL=#{hmpageUrl}, TEL_NO=#{telNo}, FAX_NO=#{faxNo}, 
-			ADDR=#{addr}, DETAIL_ADDR=#{detailAddr}, ABOLT_YN=ifnull(#{aboltYn}, 'N'), 
+			ADDR=#{addr}, DETAIL_ADDR=#{detailAddr}, ABOLT_YN=ifnull(#{aboltYn}, 'N'), GRSCH_DSTNCT=#{grschDstnct}, SYMBOL_COLOR_NM = #{symbolColorNm}, 
 		]]>
+		
+		<if test="orgnzDstnct=='대학원'">
+		<![CDATA[ 
+		 GRSCH_DSTNCT = #{grschDstnct},
+		]]>
+		</if>
 
 		<if test="prntsOrgnzNo == -1 ">
 		<![CDATA[ 
@@ -199,7 +205,7 @@
 	<![CDATA[
 		update organz set orgnz_nm=#{orgnzNm},ENG_ORGNZ_NM=#{engOrgnzNm}, ORGNZ_DSTNCT=#{orgnzDstnct}, HMPAGE_URL=#{hmpageUrl}, 
 		TEL_NO=#{telNo}, FAX_NO=#{faxNo}, ADDR=#{addr}, DETAIL_ADDR=#{detailAddr}, PRNTS_ORGNZ_NO=#{prntsOrgnzNo}, 
-		MAP_PROF_NM=#{mapProfNm}, LAB_INTRO=#{labIntro}, RSRCHR_INFO_TEXT=#{rsrchrInfoText},
+		MAP_PROF_NM=#{mapProfNm}, LAB_INTRO=#{labIntro}, RSRCHR_INFO_TEXT=#{rsrchrInfoText}, SYMBOL_COLOR_NM = #{symbolColorNm},
 		HMNBRD_DSTNCT=#{hmnbrdDstnct}, ORGNZ_FULL_NM=concat(#{orgnzFullNm},' ',#{orgnzNm}) where orgnz_no=#{orgnzNo}
 	]]>
 	</update>
@@ -250,6 +256,18 @@
 		select ORGNZ_NO orgnzNo, ORGNZ_NM orgnzNm, ORGNZ_DSTNCT orgnzDstnct, orgnz_full_nm orgnzFullNm
 		from organz 
 		where ORGNZ_DSTNCT like #{type}
+		and left(ORGNZ_NM,1) between #{start} and #{end}
+		order by 2;
+		]]>
+	</select>
+	
+	<!-- 허주한 -->
+	<select id="getNotiListByChar" resultType="notiVo" parameterType="map">
+		<![CDATA[
+		select s.SLCTN_NOTI_NO slctnNotiNo, o.ORGNZ_NM slctnText, s.ADMIN_NO adminNo, s.ORGNZ_NO orgnzNo, s.SLCTN_NOTI_DSTNCT slctnNotiDstnct, s.SLCTN_TITLE slctnTitle, o. ORGNZ_FULL_NM orgnzFullNm
+		from slctn_noti s, organz o
+		where SLCTN_NOTI_DSTNCT like concat('%',#{type},'%')
+		and s.orgnz_no = o.orgnz_no
 		and left(ORGNZ_NM,1) between #{start} and #{end}
 		order by 2;
 		]]>

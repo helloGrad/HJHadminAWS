@@ -56,5 +56,15 @@ public class NotiDao {
 		sqlSession.insert("noti.insertNotiInfo", codeVo);
 		
 	}
+	
+	
+	public List<CodeVo> selectNotiInfo(Map<String, Object> map) {
+		return sqlSession.selectList("noti.selectNotiInfo", map);
+	}
+
+	public void deleteNotiInfo(Long slctnNotiNo) {
+		sqlSession.delete("noti.deleteNotiInfo", slctnNotiNo);
+		
+	}
 
 }

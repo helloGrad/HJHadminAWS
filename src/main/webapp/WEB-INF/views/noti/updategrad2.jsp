@@ -39,6 +39,63 @@
 			padding-right: 20px;
 		}
 </style>
+<script type="text/javascript">
+
+$(function(){
+	$(document).on('click','.fileDeleteBtn', function(event){
+		console.log("삭제")
+		var fNo = $(this).attr('id')
+		
+		
+		$.ajax({
+			url : "/admin/organz/api/deletefile",
+			data : "no="+fNo,
+
+			success : function(response) {
+				$('#d'+fNo).remove()
+				
+			},
+			error : function(jqXHR, status, e) {
+				console.log(status + " : " + e);
+			}
+		});
+	})
+	
+	
+	
+
+	var codeList = JSON.parse('${codeList}');
+	var type = $("#type").val();
+	for (var i = 0; i < codeList.length; i++) {
+		$("#cdNmList")
+				.append(
+						"<div id='"
+								+ codeList[i].cdId
+								+ "'><span id='cdNm' name='cdNm' val='"
+								+ codeList[i].cdNm
+								+ "'>"
+								+ codeList[i].cdNm
+								+ "</span>"
+								+ "<button id='deleteBtn' type='button' onclick='clickDelete(\""
+								+ codeList[i].cdId
+								+ "\");' class='btn'>X</button>"
+								+ "<input type='hidden' name='codes["
+								+ index + "].cdId' value='"
+								+ codeList[i].cdId + "'>"
+								+ "<input type='hidden' name='codes["
+								+ index + "].cdNm' value='"
+								+ codeList[i].cdNm + "'>"
+								+ "</div>")
+		checkList.push(codeList[i].cdNm);
+		index++;
+	}
+	
+	
+	
+})
+
+
+</script>
 </head>
 <body class="adminbody">
 <c:import url="/WEB-INF/views/include/header.jsp" />
@@ -66,7 +123,8 @@
                         <form class="login-form" id="login-form" name="loginform" method="post"
                               enctype="multipart/form-data"
                               action="${pageContext.servletContext.contextPath }/noti/update">
-                            <input type="hidden" name="tabnm" value="grad"> 
+                              <input type="hidden" name="type" value="${vo.slctnNotiDstnct }" id="type">
+                            <input type="hidden" name="tabnm" value="${vo.slctnNotiDstnct }"> 
                             <input type="hidden" name="slctnNotiNo" value="${vo.slctnNotiNo }">
 							<input type="hidden" name="adminNo" value="${authUser.mbNo }">
 
@@ -305,7 +363,12 @@
                                     </table>
 
                                     <div id='apndngfiles'></div>
-
+										<c:forEach items="${fileList }" var="fileList">
+                                		<div id = "d${fileList.apndngFileNo }" >
+											<span>${fileList.apndngFileNm }</span>
+											<button id="${fileList.apndngFileNo }" type="button" class="btn fileDeleteBtn">X</button>
+										</div>
+                                	</c:forEach>
                                     <br>
                                     
                                     <button type="submit"

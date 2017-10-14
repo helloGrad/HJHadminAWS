@@ -203,7 +203,7 @@ public class OrganzController {
 		model.addAttribute("codeList", codeList);
 		model.addAttribute("codeList1", codeList1);
 		model.addAttribute("codeList2", codeList2);
-		model.addAttribute("codeList2", codeList3);
+		model.addAttribute("codeList3", codeList3);
 		System.out.println(codeList);
 		System.out.println(codeList1);
 		System.out.println(codeList2);
@@ -215,6 +215,9 @@ public class OrganzController {
 		model.addAttribute("codeList2", jsonArray.fromObject(codeList2));
 		model.addAttribute("codeList3", jsonArray.fromObject(codeList3));
 
+		
+		System.out.println(no+" "+codeList3);
+		
 		if (type.equals("연구실")) {
 
 			model.addAttribute("organzLabList", organzService.getOrganz(no));
@@ -239,18 +242,21 @@ public class OrganzController {
 			@RequestParam(value = "cdlist", required = true, defaultValue = "") List<String> cdlist,
 			@ModelAttribute("codeForm") CodeForm codeForm) {
 
-		System.out.println(organzVo);
-		System.out.println("타입" + type);
-		System.out.println("prntsOrgnzStr" + prntsOrgnzStr);
-		System.out.println("cdlist" + cdlist);
-		System.out.println("codeForm" + codeForm);
+
+		System.out.println(organzVo.getOrgnzNo()+" codeForm : " + codeForm);
+		System.out.println(organzVo.getOrgnzNo()+" cdlist : " + cdlist);
 
 		List<String> infoList = new ArrayList<String>();
+		List<String> gradinfoList = new ArrayList<String>();
 
 		int index = 0;
 
+		
+		/*
+		 * 연구실 연구분야 리스크, 학과/학부 전공코드 1개 
+		 */
 		if (codeForm.getCodes() != null) {
-
+			
 			for (int i = 0; i < codeForm.getCodes().size(); i++) {
 
 				if (codeForm.getCodes().get(i).getCdId() == null) {
@@ -262,19 +268,50 @@ public class OrganzController {
 				}
 			}
 		}
+		
+		/*
+		 * 2017-10-14 학과/학부 세부전공코드 리스트에 할당
+		 */
+		
+		index=0;
+		if(codeForm.getCodes2() != null) {
+			for (int i = 0; i < codeForm.getCodes2().size(); i++) {
+
+				if (codeForm.getCodes2().get(i).getCdId() == null) {
+
+				} else {
+
+					gradinfoList.add(index, codeForm.getCodes2().get(i).getCdId());
+					index++;
+				}
+			}			
+		}
+		
+		System.out.println(infoList);
 
 		if (cdlist.size() != 0 || codeForm.getCodes() != null || codeForm.getCodes2() != null) {
+			
+			
+			System.out.println("쿼리 두개 중에 하나는 존재");
+			
 			organzService.deleteOrganzInfo(organzVo.getOrgnzNo());
-			organzService.setOrganzInfo(organzVo.getOrgnzNo(), cdlist);
+			organzService.setOrganzInfo(organzVo.getOrgnzNo(), infoList);
+	
+			if(organzVo.getOrgnzDstnct().equals("연구실")) {
 
-			if (organzVo.getOrgnzDstnct().equals("연구실")) {
-				organzService.setOrganzInfo(organzVo.getOrgnzNo(), infoList);
 			}
+			else if(organzVo.getOrgnzDstnct().equals("학과") && codeForm.getCodes2() != null) {
+				//organzService.deleteOrganzInfo(organzVo.getOrgnzNo(),);
+				organzService.setOrganzInfo(organzVo.getOrgnzNo(), gradinfoList);
+			}
+			
 
 		} else {
 
 			organzService.deleteOrganzInfo(organzVo.getOrgnzNo());
 		}
+		
+		
 
 		if (type.equals("연구실")) {
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.grad.admin.repository.OrganzDao;
 import com.grad.admin.vo.CodeForm;
 import com.grad.admin.vo.CodeVo;
+import com.grad.admin.vo.NotiVo;
 import com.grad.admin.vo.OrganzVo;
 import com.grad.admin.vo.ResrchAcrsltVo;
 
@@ -65,6 +66,7 @@ public class OrganzService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("no", no);
 		map.put("type", type);
+		System.out.println(no+" - "+type);
 		return organzDao.selectOrganzInfo(map);
 	}
 
@@ -142,7 +144,7 @@ public class OrganzService {
 
 	}
 
-
+	//대학원 대학교 학과 업데이트
 	public void update(OrganzVo organzVo, String type, String prntsOrgnzStr) {
 
 		if (prntsOrgnzStr.isEmpty() || prntsOrgnzStr.equals(null) || prntsOrgnzStr.equals("0")) {
@@ -204,6 +206,14 @@ public class OrganzService {
 		map.put("end", end);
 		return organzDao.getListByChar(map);
 	}
+	
+	public List<NotiVo> getNotiListByChar(String type, String start, String end) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
+		map.put("start", start);
+		map.put("end", end);
+		return organzDao.getNotiListByChar(map);
+	}
 
 
 
@@ -228,5 +238,8 @@ public class OrganzService {
 
 		return organzDao.getCode(dstnct);
 	}
+
+
+	
 
 }

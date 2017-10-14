@@ -34,5 +34,10 @@ public class ApndngFileDao {
 		
 		return sqlSession.selectList("apndngfile.getFileList", map);
 	}
+
+
+	public boolean deleteFile(int no) {
+		return (1==sqlSession.delete("apndngfile.deleteFile", no));
+	}
 	
 }

@@ -41,6 +41,7 @@ public class AWSService {
                 ase.printStackTrace();
             } finally {
                 amazonS3 = null;
+                
             }
         }else {
         	System.out.println("아마존 실패");
