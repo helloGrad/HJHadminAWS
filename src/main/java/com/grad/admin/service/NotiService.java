@@ -53,10 +53,11 @@ public class NotiService {
 		Integer id = lastId;
 		codeVo.setSlctnNotiNo(id.longValue());
 
-		for (int i = 0; i < codeForm.getCodes().size(); i++) {
-
-			codeVo.setCdId(codeForm.getCodes().get(i).getCdId());
-			notiDao.setNotiInfo(codeVo);
+		if (codeForm != null) {
+			for (int i = 0; i < codeForm.getCodes().size(); i++) {
+				codeVo.setCdId(codeForm.getCodes().get(i).getCdId());
+				notiDao.setNotiInfo(codeVo);
+			}
 		}
 
 	}

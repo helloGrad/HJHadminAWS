@@ -11,116 +11,7 @@
     <title>HIGRAD - ADMIN</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/press.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/organzjs/autoCompleteSroll.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<c:if test="${vo.orgnzDstnct=='학과' }">
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/js/organzjs/insertgrad.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/js/organzjs/insertgrad2.js"></script>
-</c:if>
-
-<script type="text/javascript">
-	$(function() {
-		
-		
-		$("#hmnbrdDstnct").val("${vo.hmnbrdDstnct}").attr("selected",
-				"selected");
-		$("#orgnzDstnct").val("${vo.orgnzDstnct}").attr("selected", "selected");
-
-		$("textarea.autosize").on('keydown keyup', function() {
-			$(this).height(1).height($(this).prop('scrollHeight') + 12);
-		});
-		
-		var codeList = JSON.parse('${codeList}');
-		codeList1 = JSON.parse('${codeList1}'); 
-		codeList2 = JSON.parse('${codeList2}'); 
-		var type2 = $("#type").val();
-
-		
-
-		if (type2 === '학과') {
-			
-			$("#cdNmList")
-			.append(
-					"<div id='"
-							+ codeList1[0].cdId
-							+ "'><span id='cdNm' name='cdNm' val='"
-							+ codeList1[0].cdNm
-							+ "'>"
-							+ codeList1[0].cdNm
-							+ "</span>"
-							+ "<button id='deleteBtn' type='button' onclick='clickDelete(\""
-							+ codeList1[0].cdId
-							+ "\");' class='btn'>X</button>"
-							+ "<input type='hidden' name='codes[" + 0
-							+ "].cdId' value='" + codeList1[0].cdId + "'>"
-							+ "<input type='hidden' name='codes[" + 0
-							+ "].cdNm' value='" + codeList1[0].cdNm + "'>"
-							+ "</div>")
-				index++;
-				checkList.push(codeList1[0].cdNm);
-				
-			for (var i = 0; i < codeList2.length; i++) {
-				$("#cdNmList2")
-						.append(
-								"<div id='"
-										+ codeList2[i].cdId
-										+ "'><span id='cdNm' name='cdNm' val='"
-										+ codeList2[i].cdNm
-										+ "'>"
-										+ codeList2[i].cdNm
-										+ "</span>"
-										+ "<button id='deleteBtn' type='button' onclick='clickDelete(\""
-										+ codeList2[i].cdId
-										+ "\");' class='btn'>X</button>"
-										+ "<input type='hidden' name='codes2["
-										+ index2 + "].cdId' value='"
-										+ codeList2[i].cdId + "'>"
-										+ "<input type='hidden' name='codes2["
-										+ index2 + "].cdNm' value='"
-										+ codeList2[i].cdNm + "'>"
-										+ "</div>")
-				checkList.push(codeList2[i].cdNm);
-				index2++;
-			}
-
-		} else {
-			$('input:checkbox[name="cdlist"]').each(function() {
-				console.log(codeList.length);
-
-				for (var i = 0; i < codeList.length; i++) {
-					if (codeList[i].cdId == this.value) {
-						console.log(codeList[i].cdId);
-						this.checked = true; 
-					}
-				}
-			});
-			
-			$('input:radio[name="cdlist"]').each(function() {
-				console.log(codeList.length);
-
-				for (var i = 0; i < codeList.length; i++) {
-					if (codeList[i].cdId == this.value) {
-						console.log(codeList[i].cdId);
-						this.checked = true; 
-					}
-				}
-			});
-		}
-		
-		
-	})
-	
-	function resize(obj) {
-		obj.style.height = "1px";
-		obj.style.height = (20 + obj.scrollHeight) + "px";
-	}
-</script>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <style>
         .adminbody {
             background-color: rgb(250, 250, 252);
@@ -138,12 +29,7 @@
         .sidebar {
             box-shadow: 5px 5px 20px rgba(51, 102, 255, 0.15), 5px 5px 20px rgba(255, 0, 0, 0.1);
         }
-		.ui-autocomplete {
-			max-height: 100px;
-			overflow-y: auto;
-			overflow-x: hidden;
-			padding-right: 20px;
-		}
+
 </style>
 </head>
 <body class="adminbody">
@@ -176,37 +62,34 @@
 
                         <form class="updateform" id="updateform" name="updateform"
                               method="post" enctype="multipart/form-data"
-                              action="${pageContext.servletContext.contextPath }/organz/update">
-                              <input type="hidden" id="type" name="type"
-								value="${vo.orgnzDstnct }"> <input type="hidden"
-								id="orgnzNo" name="orgnzNo" value="${vo.orgnzNo }">
+                              action="${pageContext.servletContext.contextPath }/organz/insert">
                             <div class="w3-col s12 m5 l5 w3-row w3-padding-16 w3-row-padding w3-medium">
                                 <input type="hidden" id="type" name="type" value="${param.type }">
-                                <input type="hidden" class="w3-input" id="orgnzDstnct" name="orgnzDstnct" value="${vo.orgnzDstnct }" readonly>
+                                <input type="hidden" class="w3-input" id="orgnzDstnct" name="orgnzDstnct" value="${param.type }" readonly>
                                
                                 <label>기관명:</label>
-                                <input type="text" class="w3-input" id="orgnzNm" name="orgnzNm" value="${vo.orgnzNm }">
+                                <input type="text" class="w3-input" id="orgnzNm" name="orgnzNm">
                                 <br>
                                 <label>기관영문명:</label>
-                                <input type="text" class="w3-input" id="engOrgnzNm" name="engOrgnzNm" value="${vo.engOrgnzNm }">
+                                <input type="text" class="w3-input" id="engOrgnzNm" name="engOrgnzNm">
                                 <br>
                                 <label>상징색상명:</label>
-                                <input type="text" class="w3-input" id="symbolColorNm" name="symbolColorNm" value="${vo.engOrgnzNm }">
+                                <input type="text" class="w3-input" id="symbolColorNm" name="symbolColorNm">
                                 <br>
                                 <label>홈페이지주소:</label>
-                                <input type="text" class="w3-input" id="hmpageUrl" name="hmpageUrl" value="${vo.hmpageUrl }">
+                                <input type="text" class="w3-input" id="hmpageUrl" name="hmpageUrl">
                                 <br>
                                 <label>전화번호:</label>
-                                <input type="text" class="w3-input" id="telNo" name="telNo" value="${vo.telNo }">
+                                <input type="text" class="w3-input" id="telNo" name="telNo">
                                 <br>
                                 <label>팩스번호:</label>
-                                <input type="text" class="w3-input" id="faxNo" name="faxNo" value="${vo.faxNo }">
+                                <input type="text" class="w3-input" id="faxNo" name="faxNo">
                                 <br>
                                 <label>주소:</label>
-                                <input type="text" class="w3-input" id="addr" name="addr" value="${vo.addr }">
+                                <input type="text" class="w3-input" id="addr" name="addr">
                                 <br>
                                 <label>상세주소:</label>
-                                <input type="text" class="w3-input" id="detailAddr" name="detailAddr" value="${vo.detailAddr }">
+                                <input type="text" class="w3-input" id="detailAddr" name="detailAddr">
                                 <br>
 
                             </div>
@@ -218,23 +101,11 @@
                                 </select>
                                 <c:if test="${param.type == '대학원' }">
                                     <br>
-                                    <label>대학원 구분: ${vo.grschDstnct}</label>
+                                    <label>대학원 구분:</label>
                                     <select class="w3-input w3-select w3-white" id="grschDstnct" name="grschDstnct" style="height: 2.7em;">
-                            <c:if test="${vo.grschDstnct=='일반대학원' }">
-								<option value="일반대학원" selected="selected">일반대학원</option>
-								<option value="전문대학원">전문대학원</option>
-								<option value="특수대학원">특수대학원</option>
-							</c:if>
-							<c:if test="${vo.grschDstnct=='전문대학원' }">
-								<option value="일반대학원">일반대학원</option>
-								<option value="전문대학원" selected="selected">전문대학원</option>
-								<option value="특수대학원">특수대학원</option>
-							</c:if>
-							<c:if test="${vo.grschDstnct=='특수대학원' }">
-								<option value="일반대학원">일반대학원</option>
-								<option value="전문대학원">전문대학원</option>
-								<option value="특수대학원" selected="selected">특수대학원</option>
-							</c:if>
+                                        <option value="일반대학원">일반대학원</option>
+                                        <option value="전문대학원">전문대학원</option>
+                                        <option value="특수대학원">특수대학원</option>
                                     </select>
 
                                 </c:if>
@@ -287,12 +158,12 @@
                                     <div class="form-group">
                                         <label>부모 기관번호:</label>
                                         <input class="w3-input" id="orgnzNo1" name="prntsOrgnzStr"
-                                               type="text" value="${vo.prntsOrgnzNo }" readonly>
+                                               type="text" readonly>
                                     </div>
                                     <br>
                                     <div class="form-group">
                                         <label>부모 기관명:</label>
-                                        <input class="w3-input" id="organzinput" name="orgnzFullNm" type="text" value="${vo.orgnzFullNm }" readonly>
+                                        <input class="w3-input" id="organzinput" name="orgnzFullNm" type="text" readonly>
 
                                         <c:choose>
                                             <c:when test="${param.type=='대학원' }">

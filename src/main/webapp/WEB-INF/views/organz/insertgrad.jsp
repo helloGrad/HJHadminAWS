@@ -11,7 +11,10 @@
     <title>HIGRAD - ADMIN</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/press.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/organzjs/autoCompleteSroll.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
         .adminbody {
             background-color: rgb(250, 250, 252);
@@ -29,7 +32,12 @@
         .sidebar {
             box-shadow: 5px 5px 20px rgba(51, 102, 255, 0.15), 5px 5px 20px rgba(255, 0, 0, 0.1);
         }
-
+		.ui-autocomplete {
+			max-height: 100px;
+			overflow-y: auto;
+			overflow-x: hidden;
+			padding-right: 20px;
+		}
 </style>
 </head>
 <body class="adminbody">
@@ -234,7 +242,7 @@
     </div>
 
 
-<script type="text/javascript"
+	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/js/organzjs/file.js"></script>

@@ -183,6 +183,14 @@ public class OrganzService {
 		organzDao.deleteOrganzInfo(map);
 
 	}
+	
+	public void deleteOrganzInfo2(int orgnzNo, String type) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("no", orgnzNo);
+		map.put("type", type);
+		organzDao.deleteOrganzInfo2(map);
+
+	}
 
 
 	public int lastInsertId() {

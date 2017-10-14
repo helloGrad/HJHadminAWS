@@ -34,7 +34,7 @@
 		select o1.orgnz_no orgnzNo, o1.orgnz_nm orgnzNm, o1.ENG_ORGNZ_NM engOrgnzNm, o1.ORGNZ_DSTNCT orgnzDstnct, o1.HMPAGE_URL hmpageUrl, 
 		o1.TEL_NO telNo, o1.FAX_NO faxNo, o1.ADDR addr, o1.DETAIL_ADDR detailAddr, 
 		o1.PRNTS_ORGNZ_NO prntsOrgnzNo, o2.orgnz_full_nm orgnzFullNm, o1.MAP_PROF_NM mapProfNm, o1.LAB_INTRO labIntro, o1.RSRCHR_INFO_TEXT rsrchrInfoText, 
-		o1.HMNBRD_DSTNCT hmnbrdDstnct, o1.abolt_yn aboltYn
+		o1.HMNBRD_DSTNCT hmnbrdDstnct, o1.abolt_yn aboltYn, o1.GRSCH_DSTNCT grschDstnct
 		from organz o1, organz o2
 		where o1.ORGNZ_DSTNCT=#{type}
 		and o1.orgnz_no = #{no}
@@ -220,6 +220,16 @@
 	
 		delete o from organz_info as o join cd c on o.cd_id=c.cd_id 
 		where (c.cd_dstnct='전공' or c.cd_dstnct='학과') 
+		and o.orgnz_no=${no}
+		
+	]]>
+	</delete>
+	
+	<delete id="deleteOrganzInfo3" parameterType="map">
+	<![CDATA[
+	
+		delete o from organz_info as o join cd c on o.cd_id=c.cd_id 
+		where (c.cd_dstnct='연구분야') 
 		and o.orgnz_no=${no}
 		
 	]]>

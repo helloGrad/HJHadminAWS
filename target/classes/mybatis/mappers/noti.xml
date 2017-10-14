@@ -5,9 +5,10 @@
 	<!-- 허규준 -->
 	<select id="getNotiList" resultType="notiVo" parameterType="string">
 			<![CDATA[
-			select SLCTN_NOTI_NO slctnNotiNo, ADMIN_NO adminNo, ORGNZ_NO orgnzNo, SLCTN_NOTI_DSTNCT slctnNotiDstnct, SLCTN_TITLE slctnTitle
-			from slctn_noti
-			where SLCTN_NOTI_DSTNCT like concat('%',#{type},'%');
+			select s.SLCTN_NOTI_NO slctnNotiNo, s.ADMIN_NO adminNo, s.ORGNZ_NO orgnzNo, s.SLCTN_NOTI_DSTNCT slctnNotiDstnct, s.SLCTN_TITLE slctnTitle, o. ORGNZ_FULL_NM orgnzFullNm
+			from slctn_noti s, organz o
+			where SLCTN_NOTI_DSTNCT like concat('%',#{type},'%')
+			and s.orgnz_no = o.orgnz_no;
 			
 			]]>
 	</select>
@@ -17,7 +18,7 @@
 		<![CDATA[
 			select s.SLCTN_NOTI_NO slctnNotiNo, s.ADMIN_NO adminNo, s.ORGNZ_NO orgnzNo, o.addr addr, s.SLCTN_NOTI_DSTNCT slctnNotiDstnct, s.NOTI_REGST_DT notiRegstDt, 
 			date_format(s.SLCTN_BEGIN_DT,'%Y%m%d') slctnBeginDt, date_format(s.SLCTN_END_DT,'%Y%m%d') slctnEndDt, 
-			s.SLCTN_TITLE slctnTitle, s.SLCTN_TEXT slctnText,s.SUPRT_QUALF suprtQualf, s.SLCTN_NOPS slctnNops, s.SLSN_MTH slsnMth,
+			s.SLCTN_TITLE slctnTitle, s.SLCTN_TEXT slctnText,s.SUPRT_QUALF suprtQualf, s.SLCTN_NOPS slctnNops, s.SLSN_MTH slsnMth, s.SLCTN_YYCL slctnYycl,
 			s.SBMT_DOC_TEXT sbmtDocText, s.CHRGR_DSTNCT chrgrDstnct,s.CHRGR_NM chrgrNm,s.CHRGR_TEL_NO chrgrTelNo,s.CHRGR_EMAIL chrgrEmail, s.SLCTN_NOTI_URL slctnNotiUrl, s.RCP_MTH rcpMth, s.SLSN_BEGIN_DD slsnBeginDd, s.SLSN_END_DD slsnEndDd,
 			s.SLSN_PLAC slsnPlac,s.SCCN_ANCM_DD sccnAncmDd,s.SCCN_ANCM_MTH sccnAncmMth,s.REGST_BEGIN_DD regstBeginDd,s.REGST_END_DD regstEndDd,s.REGST_MTH regstMth, o.orgnz_full_nm orgnzFullNm
 			from slctn_noti s, organz o
@@ -31,7 +32,7 @@
 		<![CDATA[
 			select s.SLCTN_NOTI_NO slctnNotiNo, s.ADMIN_NO adminNo, s.ORGNZ_NO orgnzNo, o.addr addr, s.SLCTN_NOTI_DSTNCT slctnNotiDstnct, s.NOTI_REGST_DT notiRegstDt, 
 			date_format(s.SLCTN_BEGIN_DT,'%Y%m%d') slctnBeginDt, date_format(s.SLCTN_END_DT,'%Y%m%d') slctnEndDt, 
-			s.SLCTN_TITLE slctnTitle, s.SLCTN_TEXT slctnText,s.SUPRT_QUALF suprtQualf, s.SLCTN_NOPS slctnNops, s.SLSN_MTH slsnMth,
+			s.SLCTN_TITLE slctnTitle, s.SLCTN_TEXT slctnText,s.SUPRT_QUALF suprtQualf, s.SLCTN_NOPS slctnNops, s.SLSN_MTH slsnMth, s.SLCTN_YYCL slctnYycl,
 			s.SBMT_DOC_TEXT sbmtDocText, s.CHRGR_DSTNCT chrgrDstnct,
 			s.TUITION_SUPRT_YN tuitionSuprtYn, s.LVNC_SUPRT_YN lvncSuprtYn, s.BK21_EORGNZ_SUPRT_YN bk21EorgnzSuprtYn, s.INCET_SUPRT_YN incetSuprtYn, s.LRSTY_JOINGFEE_SUPRT_YN lrstyJoingfeeSuprtYn,
 			s.DORM_SUPRT_YN dormSuprtYn, s.INTERN_YN internYn, s.LRSTY_JOING_YN lrstyJoingYn, s.RESRCH_TASK_JOING_YN resrchTaskJoingYn, s.STDTR_OPPTY_SUPRT_YN stdtrOpptySuprtYn,

@@ -35,10 +35,9 @@ public class OrganzController {
 
 	@Autowired
 	ApndngFileService apndngFileService;
-	
 
 	/*
-	 * 허주한, 대학교 리스트 
+	 * 허주한, 대학교 리스트
 	 */
 	@Auth(role = Auth.Role.ADMIN)
 	@RequestMapping("/unilist")
@@ -56,7 +55,7 @@ public class OrganzController {
 	public String gradList(Model model) {
 
 		model.addAttribute("list", organzService.getOrgnzList("대학원"));
-		return "/organz/list2";
+		return "/organz/list";
 	}
 
 	/*
@@ -74,7 +73,7 @@ public class OrganzController {
 	 * 박가혜, 연구실 리스트
 	 */
 	@Auth(role = Auth.Role.ADMIN)
-	@RequestMapping("/lablist") 
+	@RequestMapping("/lablist")
 	public String lablist(Model model) {
 
 		model.addAttribute("list", organzService.getOrganzLabList());
@@ -86,7 +85,7 @@ public class OrganzController {
 	 * 박가혜, 연구실적 리스트
 	 */
 	@Auth(role = Auth.Role.ADMIN)
-	@RequestMapping("/resrchlist") 
+	@RequestMapping("/resrchlist")
 	public String resrchlist(Model model, @RequestParam(value = "no", required = true, defaultValue = "") int orgnzNo) {
 
 		List<ResrchAcrsltVo> resrchAcrsltList = organzService.getResrchList(orgnzNo);
@@ -94,8 +93,6 @@ public class OrganzController {
 
 		return "organz/resrchlist";
 	}
-
-
 
 	/*
 	 * 허주한, 대학원, 대학교 , 학과 입력
@@ -105,7 +102,7 @@ public class OrganzController {
 	public String insertGradForm(Model model, @RequestParam String type) {
 
 		if (type.equals("대학원") || type.equals("대학교") || type.equals("학과")) {
-			
+
 			return "/organz/insertgrad";
 		} else {
 			return "organz/insertlab";
@@ -129,13 +126,9 @@ public class OrganzController {
 		int lastId = 0;
 		ApndngFileVo vo = null;
 
-		
 		List<String> infoList = new ArrayList<String>();
-		
-		
 
 		if (codeForm.getCodes().get(0).getCdId().equals("-1") && codeForm.getCodes2().get(0).getCdId().equals("-1")) {
-			
 
 		} else {
 
@@ -148,7 +141,7 @@ public class OrganzController {
 
 		if (organzVo.getOrgnzDstnct().equals("연구실")) {
 
-			if (resrchAcrsltVo.getResrchText() == null) { 
+			if (resrchAcrsltVo.getResrchText() == null) {
 				System.out.println("연구실 입력");
 				organzService.insertLab(organzVo);
 			}
@@ -158,27 +151,23 @@ public class OrganzController {
 			}
 
 		} else {
-			organzService.insert(organzVo,prntsOrgnzStr);
+			organzService.insert(organzVo, prntsOrgnzStr);
 		}
 
 		lastId = organzService.lastInsertId();
 
-	
 		if (organzVo.getOrgnzDstnct().equals("학과") && codeForm.getCodes().size() != 0) {
 			organzService.setOrganzInfo(lastId, codeForm);
 		}
 		if (cdlist.size() != 0) {
 			organzService.setOrganzInfo(lastId, cdlist);
 		}
-		
-		
+
 		if (infoList.size() != 0 && organzVo.getOrgnzDstnct().equals("연구실")) {
-			
-			
-			organzService.setOrganzInfo(lastId,infoList);
-		
+
+			organzService.setOrganzInfo(lastId, infoList);
+
 		}
-		
 
 		/*
 		 * 허주한, 기관 첨부파일 등록(대학교 로고)
@@ -200,7 +189,6 @@ public class OrganzController {
 		return "redirect:/organz/list";
 	}
 
-
 	/*
 	 * 허주한,박가혜 ,정예린, 대학원, 대학교 , 학과 수정
 	 */
@@ -208,20 +196,26 @@ public class OrganzController {
 	@RequestMapping("/updateform")
 	public String updateGradForm(Model model, @RequestParam int no, @RequestParam String type) {
 
-		
 		List<CodeVo> codeList = organzService.getOrganzInfo(no);
 		List<CodeVo> codeList1 = organzService.getOrganzInfo(no, "학과");
 		List<CodeVo> codeList2 = organzService.getOrganzInfo(no, "전공");
+		List<CodeVo> codeList3 = organzService.getOrganzInfo(no, "연구분야");
 		model.addAttribute("codeList", codeList);
 		model.addAttribute("codeList1", codeList1);
 		model.addAttribute("codeList2", codeList2);
+		model.addAttribute("codeList2", codeList3);
+		System.out.println(codeList);
+		System.out.println(codeList1);
+		System.out.println(codeList2);
+		System.out.println(codeList3);
+
 		JSONArray jsonArray = new JSONArray();
 		model.addAttribute("codeList", jsonArray.fromObject(codeList));
 		model.addAttribute("codeList1", jsonArray.fromObject(codeList1));
 		model.addAttribute("codeList2", jsonArray.fromObject(codeList2));
+		model.addAttribute("codeList3", jsonArray.fromObject(codeList3));
 
-		
-		if (type.equals("연구실")) { 
+		if (type.equals("연구실")) {
 
 			model.addAttribute("organzLabList", organzService.getOrganz(no));
 			return "organz/labupdatedetail";
@@ -244,14 +238,16 @@ public class OrganzController {
 			@RequestParam(value = "prntsOrgnzStr", required = true, defaultValue = "") String prntsOrgnzStr,
 			@RequestParam(value = "cdlist", required = true, defaultValue = "") List<String> cdlist,
 			@ModelAttribute("codeForm") CodeForm codeForm) {
-		
-		
 
-		
+		System.out.println(organzVo);
+		System.out.println("타입" + type);
+		System.out.println("prntsOrgnzStr" + prntsOrgnzStr);
+		System.out.println("cdlist" + cdlist);
+		System.out.println("codeForm" + codeForm);
+
 		List<String> infoList = new ArrayList<String>();
 
 		int index = 0;
-		
 
 		if (codeForm.getCodes() != null) {
 
@@ -267,29 +263,27 @@ public class OrganzController {
 			}
 		}
 
-
 		if (cdlist.size() != 0 || codeForm.getCodes() != null || codeForm.getCodes2() != null) {
 			organzService.deleteOrganzInfo(organzVo.getOrgnzNo());
-			organzService.setOrganzInfo(organzVo.getOrgnzNo(), cdlist);			
-			
-			if(organzVo.getOrgnzDstnct().equals("연구실")) {
+			organzService.setOrganzInfo(organzVo.getOrgnzNo(), cdlist);
+
+			if (organzVo.getOrgnzDstnct().equals("연구실")) {
 				organzService.setOrganzInfo(organzVo.getOrgnzNo(), infoList);
-			}			
+			}
 
 		} else {
 
 			organzService.deleteOrganzInfo(organzVo.getOrgnzNo());
 		}
-		
+
 		if (type.equals("연구실")) {
 
 			organzService.updateOrganz(organzVo);
-			
+
 			return "redirect:/organz/lablist";
 
 		} else {
-			
-		
+
 			organzService.update(organzVo, type, prntsOrgnzStr);
 			if (type.equals("학과")) {
 				organzService.deleteOrganzInfo(organzVo.getOrgnzNo(), "학과");
@@ -298,15 +292,18 @@ public class OrganzController {
 				}
 
 			}
+			if (type.equals("연구실")) {
+				organzService.deleteOrganzInfo2(organzVo.getOrgnzNo(), "연구실");
+			}
 			return "redirect:/organz/list";
 		}
 	}
 
 	/*
-	 * 박가혜, 연구실적 
+	 * 박가혜, 연구실적
 	 */
 	@Auth(role = Auth.Role.ADMIN)
-	@RequestMapping("/resrchdetail") 
+	@RequestMapping("/resrchdetail")
 	public String resrchdetail(Model model,
 			@RequestParam(value = "no", required = true, defaultValue = "") int resrchAcrsltNo) {
 

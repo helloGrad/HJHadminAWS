@@ -5,46 +5,85 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>HIGRAD - ADMIN</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/press.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/organzjs/organzlist.js"></script>
+<style>
+        .adminbody {
+            background-color: rgb(250, 250, 252);
+            padding-top: 4em;
+        }
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        .logo {
+            background-color: rgb(36, 23, 99);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .sidebar {
+            box-shadow: 5px 5px 20px rgba(51, 102, 255, 0.15), 5px 5px 20px rgba(255, 0, 0, 0.1);
+        }
+
+</style>
 </head>
-<body>
-
-	<c:import url="/WEB-INF/views/include/header.jsp" />
-	<div class="container">
-		<div class="row">
-			<c:import url="/WEB-INF/views/organz/include/menu.jsp" />
-		</div>
-		<div class="row">
-			<c:import url="/WEB-INF/views/organz/include/charlist.jsp" />
-		</div>
-
-		<hr class="nav-line">
-		<div id="fetchList" class="row">
-			<c:forEach items="${list }" var="list" varStatus="status">
-				<div class="col-md-12">
-					<h3>
-						<a
-							href="${pageContext.servletContext.contextPath }/organz/updateform?no=${list.orgnzNo}&type=${list.orgnzDstnct}">${list.orgnzFullNm }</a>
-						<c:if test="${list.orgnzDstnct=='연구실'}">
-							<a id="resrchbtn" class="btn btn-primary"
-								href="${pageContext.servletContext.contextPath }/organz/resrchlist?no=${list.orgnzNo}">연구실적수정하기</a>
-						</c:if>
-					</h3>
-					<hr>
-				</div>
-			</c:forEach>
-
-		</div>
+<body class="adminbody">
+<c:import url="/WEB-INF/views/include/header.jsp" />
+<div class="w3-row w3-row-padding">
+    <c:import url="/WEB-INF/views/include/side.jsp" />
 
 
-	</div>
+    <div class="w3-col m10 l10">
+        <div class="w3-row">
+            <div class="w3-large w3-card-2 w3-white">
+                <h5 class="w3-padding-16">
+                    <a href="" class="w3-margin-left w3-margin-right" style="letter-spacing: 0.1em;">DASHBOARD</a>
+                    <i class="far fa-chevron-right"></i>
+                    <a href="" class="w3-margin-left w3-text-red" style="letter-spacing: 0.1em;">기관 - ${list[0].orgnzDstnct}</a>
+                </h5>
+            </div>
 
-	<c:import url="/WEB-INF/views/include/footer.jsp" />
+            <div class="w3-large w3-card-2 w3-white w3-padding-16 w3-margin-bottom">
+                <div class="w3-row">
+                    <h4 class="w3-center" style="letter-spacing: 0.3em;">${list[0].orgnzDstnct}</h4>
+                </div>
+
+                <div class="w3-row">
+                    <div class="w3-row-padding w3-center" style="margin-top:1px">
+                    
+					<c:import url="/WEB-INF/views/organz/include/charlist2.jsp" />
+					                        
+                    </div>
+                </div>
+
+                <div class="w3-container w3-row w3-row-padding ">
+                    <!--//////////////-->
+                    <div class="w3-col s12 m12 l12 w3-padding-16">
+                        <div class=" w3-round-large w3-margin-bottom w3-content">
+                            <!--대학원-->
+                            <div id='fetchList' class="w3-ul">
+                            
+                            	<c:forEach items="${list }" var="list" varStatus="status">
+	                            	<li class="">
+	                            		<a href="${pageContext.servletContext.contextPath }/organz/updateform?no=${list.orgnzNo}&type=${list.orgnzDstnct}">
+	                            			<span class="w3-medium">${list.orgnzFullNm }</span>
+	                            		</a>
+	                            		<c:if test="${list.orgnzDstnct=='연구실'}">
+	                            			<span class="w3-tiny w3-right">연구 실적 수정하기</span>
+	                            		</c:if>
+	                            	</li>
+                            	</c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

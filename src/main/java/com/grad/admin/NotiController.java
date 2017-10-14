@@ -49,7 +49,7 @@ public class NotiController {
 	public String notiGradList(@RequestParam(value = "page", required = true, defaultValue = "1") int page,
 			Model model) {
 		model.addAttribute("notiList", notiService.getNotiList("대학원"));
-		return "/noti/gradlist";
+		return "/noti/list";
 	}
 
 	/*
@@ -59,7 +59,7 @@ public class NotiController {
 	@RequestMapping(value = "/lab", method = RequestMethod.GET)
 	public String notiLabList(Model model) {
 		model.addAttribute("notiList", notiService.getNotiList("연구실"));
-		return "/noti/lablist";
+		return "/noti/list";
 	}
 
 	/*
@@ -142,13 +142,14 @@ public class NotiController {
 	public String notiDetail(@RequestParam("no") int no, @RequestParam("tabnm") String tabnm, Model model) {
 
 		model.addAttribute("vo", notiService.getNoti(tabnm, no));
+		System.out.println(notiService.getNoti(tabnm, no));
 		if (tabnm.equals("대학원")) {
 			tabnm = "grad";
 		} else if (tabnm.equals("연구실")) {
 			tabnm = "lab";
 		}
 
-		return "/noti/update" + tabnm;
+		return "/noti/update" + tabnm + "2";
 	}
 
 	@Auth(role = Auth.Role.ADMIN)

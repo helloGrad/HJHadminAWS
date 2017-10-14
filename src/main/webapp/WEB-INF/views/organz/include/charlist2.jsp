@@ -4,9 +4,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div class="w3-container w3-row w3-center w3-padding-16">
+<div id="charList" class="w3-container w3-row w3-center w3-padding-16">
 	<input id="type" type="hidden" value="${list[0].orgnzDstnct }" />
-	<button id="" class=" w3-button w3-round-large w3-border w3-border-blue">
+	<button id="charBtn16" class=" w3-button w3-round-large w3-border w3-border-blue" value='16'>
 		<span class="w3-large">All</span>
 	</button>
 	<button id="charBtn1" class="w3-button w3-round-large  w3-border w3-border-blue" value='1'>

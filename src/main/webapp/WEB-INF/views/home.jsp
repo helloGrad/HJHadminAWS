@@ -11,11 +11,6 @@
     <title>HIGRAD - ADMIN</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/w3.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/press.css">
-    <script defer src="js/packs/regular.js"></script>
-    <script defer src="js/packs/solid.js"></script>
-    <script defer src="js/packs/light.js"></script>
-    <script defer src="js/packs/brands.min.js"></script>
-    <script defer src="js/fontawesome.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <style>
         .adminbody {
@@ -123,11 +118,11 @@
                     <h6 class="w3-center" style="letter-spacing: 0.3em;">ADD</h6>
                     <div class=" w3-center" style="margin-top:1px">
                         <div class="w3-container w3-row w3-center w3-padding-16">
-                            <a class="w3-col m2 l2 w3-text-grey w3-button " >
+                            <a class="w3-col m2 l2 w3-text-grey w3-button " href="${pageContext.servletContext.contextPath }/noti/insert?type=대학원" >
                                 <span class="w3-large">+</span>
                                 <br><span class="w3-medium">대학원 모집공고</span>
                             </a>
-                            <a class="w3-col m2 l2 w3-text-grey w3-button  ">
+                            <a class="w3-col m2 l2 w3-text-grey w3-button  " href="${pageContext.servletContext.contextPath }/noti/insert?type=연구실">
                                 <span class="w3-large">+</span>
                                 <br><span class="w3-medium">연구실 모집공고</span>
                             </a>
@@ -135,11 +130,11 @@
                                 <span class="w3-large">+</span>
                                 <br><span class="w3-medium">대학</span>
                             </a>
-                            <a class="w3-col m2 l2 w3-text-grey w3-button  " href="${pageContext.servletContext.contextPath }/organz/insertform?type=대학원">
+                            <a class="w3-col m2 l2 w3-text-grey w3-button  " href="${pageContext.servletContext.contextPath }/organz/insertform?type=학과">
                                 <span class="w3-large">+</span>
                                 <br><span class="w3-medium">학부/학과</span>
                             </a>
-                            <a class="w3-col m2 l2 w3-text-grey w3-button " href="${pageContext.servletContext.contextPath }/organz/insertform?type=학과">
+                            <a class="w3-col m2 l2 w3-text-grey w3-button " href="${pageContext.servletContext.contextPath }/organz/insertform?type=대학원">
                                 <span class="w3-large">+</span>
                                 <br><span class="w3-medium">대학원</span>
                             </a>

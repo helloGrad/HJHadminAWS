@@ -59,24 +59,26 @@
             <div class="w3-large w3-card-2 w3-white w3-padding-16 w3-margin-bottom">
                 <div class="container">
                     <div class="w3-row">
-                        <h4 class="w3-margin-left" style="letter-spacing: 0.3em;">대학원 모집공고 추가 </h4>
+                        <h4 class="w3-margin-left" style="letter-spacing: 0.3em;">대학원 모집공고 수정 </h4>
                     </div>
 
                     <div id="notigrad" class="w3-row">
                         <form class="login-form" id="login-form" name="loginform" method="post"
                               enctype="multipart/form-data"
-                              action="${pageContext.servletContext.contextPath }/noti/insert">
-                            <input type="hidden" name="type" value="대학원" id="type">
+                              action="${pageContext.servletContext.contextPath }/noti/update">
+                            <input type="hidden" name="tabnm" value="grad"> 
+                            <input type="hidden" name="slctnNotiNo" value="${vo.slctnNotiNo }">
+							<input type="hidden" name="adminNo" value="${authUser.mbNo }">
 
                             <div class="w3-col s12 m5 l5 w3-row w3-padding-16 w3-row-padding w3-medium">
                                 <div class="w3-row">
                                     <div class="w3-col" style="width:150px">
                                         <label>기관번호:</label>
-                                        <input class="w3-input" id="orgnzNo1" name="orgnzNo" type="text" readonly>
+                                        <input class="w3-input" id="orgnzNo1" name="orgnzNo" type="text" value="${vo.orgnzNo }" readonly>
                                     </div>
                                     <div class="w3-rest">
                                         <label>기관명:</label>
-                                        <input class="w3-input" id="organzinput" type="text" readonly>
+                                        <input class="w3-input" id="organzinput" type="text" value="${vo.orgnzFullNm }" readonly>
                                     </div>
                                     <br>
                                     <button type="button" class="w3-button w3-blue w3-block w3-round" type='button'
@@ -87,7 +89,7 @@
 
                                 <div class="w3-half w3-margin-bottom">
                                     <label>모집년도:</label>
-                                    <input class="w3-input" type="text" name="slctnYycl">
+                                    <input class="w3-input" type="text" name="slctnYycl" value="${vo.slctnYycl }">
                                 </div>
 
                                 <div class="w3-half w3-margin-bottom">
@@ -103,30 +105,30 @@
                                 <Br>
 
                                 <label> 제목:</label>
-                                <input class="w3-input" id="slctnTitle" name="slctnTitle" type="text">
+                                <input class="w3-input" id="slctnTitle" name="slctnTitle" type="text" value="${vo.slctnTitle }" >
 
                                 <Br>
                                 <div class="w3-row w3-row-padding w3-margin-bottom">
                                     <div class="w3-half">
                                 <label>모집기간(시작):</label>
-                                <input class="w3-input" id="slsnBeginDd" name="slsnBeginDd" type="text">
+                                <input class="w3-input" id="slsnBeginDd" name="slsnBeginDd" type="text" value="${vo.slsnBeginDd }">
                                     </div>
                                     <div class="w3-half">
                                 <label>모집기간(종료):</label>
-                                <input class="w3-input" id="slsnEndDd" name="slsnEndDd" type="text">
+                                <input class="w3-input" id="slsnEndDd" name="slsnEndDd" type="text" value="${vo.slsnEndDd }">
                                     </div>
                                 </div>
 
                                 <Br>
 
                                 <label>대학원 모집 url:</label>
-                                <input class="w3-input" id="slctnNotiUrl" name="slctnNotiUrl" type="text">
+                                <input class="w3-input" id="slctnNotiUrl" name="slctnNotiUrl" type="text" value="${vo.slctnNotiUrl }">
 
                                 <br>
 
                                 <label>모집내용: </label>
                                 <textarea class="w3-input" rows="2" id="slctnText"
-                                          name="slctnText"></textarea>
+                                          name="slctnText" >${vo.slctnText }</textarea>
 
                                 <Br>
 
@@ -140,14 +142,14 @@
 
                                 <label>전형방법:</label>
                                 <textarea class="w3-input" rows="3" id="slsnMth"
-                                          name="slsnMth"></textarea>
+                                          name="slsnMth">${vo.slsnMth }</textarea>
 
                                 <br>
 
 
                                 <label>지원자격:</label>
                                 <textarea class="w3-input" rows="4" id="suprtQualf"
-                                          name="suprtQualf"></textarea>
+                                          name="suprtQualf">${vo.suprtQualf }</textarea>
 
                                 <Br>
                             </div>
@@ -156,49 +158,49 @@
                                 <div class="w3-row w3-row-padding w3-margin-bottom">
                                     <div class="w3-half">
                                 <label>접수기간(시작): </label>
-                                <input class="w3-input" id="slctnBeginDt" name="slctnBeginDt" type="text">
+                                <input class="w3-input" id="slctnBeginDt" name="slctnBeginDt" type="text" value="${vo.slctnBeginDt }">
                                     </div>
                                     <div class="w3-half">
                                 <label>접수기간(종료): </label>
                                 <input class="w3-input" id="slctnEndDt" name="slctnEndDt"
-                                       type="text">
+                                       type="text" value="${vo.slctnEndDt }">
                                     </div>
                                 </div>
 
                                 <label>제출서류:</label>
                                 <textarea class="w3-input" rows="2" id="sbmtDocText"
-                                          name="sbmtDocText"></textarea>
+                                          name="sbmtDocText">${vo.sbmtDocText }</textarea>
 
                                 <Br>
 
                                 <label> 원서접수: </label>
                                 <textarea class="w3-input" rows="2" id="rcpMth" name="rcpMth"
-                                          placeholder="접수방법"></textarea>
+                                          placeholder="접수방법">${vo.rcpMth }</textarea>
 
                                 <Br>
 
                                 <label> 접수 장소 : </label>
                                 <textarea class="w3-input" rows="2" id="slsnPlac"
-                                          name="slsnPlac"></textarea>
+                                          name="slsnPlac">${vo.slsnPlac }</textarea>
 
                                 <Br>
 
                                 <label>합격자 발표 </label>
                                 <label>발표일:</label>
-                                <input class="w3-input" id="sccnAncmDd" name="sccnAncmDd" type="text">
+                                <input class="w3-input" id="sccnAncmDd" name="sccnAncmDd" type="text" value="${vo.sccnAncmDd }">
                                 <br>
                                 <label>장소:</label>
-                                <textarea class="w3-input" rows="2" id="sccnAncmMth" name="sccnAncmMth"></textarea>
+                                <textarea class="w3-input" rows="2" id="sccnAncmMth" name="sccnAncmMth">${vo.sccnAncmMth }</textarea>
                                 <Br>
                                 <label> 등록기간: </label>
                                 <div class="w3-row w3-row-padding w3-margin-bottom">
                                     <div class="w3-half">
                                 <label>시작일:</label>
-                                        <input class="w3-input" id="regstBeginDd" name="regstBeginDd" type="text">
+                                        <input class="w3-input" id="regstBeginDd" name="regstBeginDd" type="text" value="${vo.regstBeginDd }">
                                     </div>
                                     <div class="w3-half">
                                 <label>종료일:</label>
-                                        <input class="w3-input" id="regstEndDd" name="regstEndDd" type="text">
+                                        <input class="w3-input" id="regstEndDd" name="regstEndDd" type="text" value="${vo.regstEndDd }">
                                     </div>
                                 </div>
 
@@ -206,7 +208,7 @@
 
                                 <label>발표:</label>
                                 <textarea class="w3-input" rows="2" id="regstMth"
-                                          name="regstMth"></textarea>
+                                          name="regstMth">${vo.regstMth }</textarea>
 
                                 <br>
 
@@ -222,6 +224,8 @@
                                         <option value="Y">유료</option>
                                         <option value="N">무료</option>
                                     </select>
+
+                                    <Br>
                                    <!--  <label> 지역 : </label>
                                     <br>
                                     <div class="w3-third w3-margin-bottom">
@@ -278,19 +282,19 @@
                                 <div class="w3-col s12 m5 l5 w3-row w3-padding-16 w3-row-padding w3-medium">
 
                                     <label>모집인원: </label>
-                                    <input class="w3-input" id="slctnNops" name="slctnNops" type="text">
+                                    <input class="w3-input" id="slctnNops" name="slctnNops" type="text" value="${vo.slctnNops }">
                                     <br>
                                     <label>담당자: </label>
                                     <input class="w3-input" id="chrgrNm" name="chrgrNm"
-                                           type="text">
+                                           type="text" value="${vo.chrgrNm }">
                                     <br>
                                     <label>전화번호: </label>
                                     <input class="w3-input" id="chrgrTelNo" name="chrgrTelNo"
-                                           type="text">
+                                           type="text" value="${vo.chrgrTelNo }">
                                     <br>
                                     <label>email: </label>
                                     <input class="w3-input" id="chrgrEmail" name="chrgrEmail"
-                                           type="text">
+                                           type="text" value="${vo.chrgrEmail }">
                                     <br>
 
                                     <label>로고등록: </label>
@@ -305,7 +309,7 @@
                                     <br>
                                     
                                     <button type="submit"
-                                            class="w3-button w3-block w3-border w3-round-large w3-margin-bottom w3-large">모집공고 등록
+                                            class="w3-button w3-block w3-border w3-round-large w3-margin-bottom w3-large">모집공고 수정
                                     </button>
                                 </div>
                             </div>

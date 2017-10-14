@@ -103,6 +103,11 @@ public class OrganzDao {
 		
 		sqlSession.delete("organz.deleteOrganzInfo2", map);
 	}
+	
+	public void deleteOrganzInfo2(Map<String, Object> map) {
+		
+		sqlSession.delete("organz.deleteOrganzInfo3", map);
+	}
 
 	
 
