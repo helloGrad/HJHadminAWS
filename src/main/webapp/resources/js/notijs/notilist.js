@@ -28,8 +28,16 @@ var clickCharBtn = function(){
 		data : "",
 		success : function(response) {
 		
-		
+			
 			$("#fetchList").empty();
+			
+			if(response.data.length==0){
+				$('#fetchList').append("<li class=''>" +
+						"<span class='w3-medium'>No Result</span></li>");
+				return;
+				
+			}
+			
 			for(var i = 0 ; i<response.data.length ; i++){
 				
 				$("#fetchList").append("<li class=''> " + 

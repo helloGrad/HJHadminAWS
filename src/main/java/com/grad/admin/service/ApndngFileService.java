@@ -41,9 +41,6 @@ public class ApndngFileService {
 			Long fileSize = multipartFile.getSize();
 			String saveFileName = genSaveFileName(extName);
 
-//			System.out.println("##########");
-//			System.out.println("fileName = "+ orginalFileName + ", fileSzie = "+fileSize + ", extName = " + extName + ", saveFileName = " + saveFileName);
-//			System.out.println("##########");
 
 			wrtieFile(multipartFile, saveFileName);
 			awsService.uploadFile(new File(SAVE_PATH+"/"+saveFileName));

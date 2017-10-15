@@ -66,7 +66,6 @@ public class OrganzService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("no", no);
 		map.put("type", type);
-		System.out.println(no+" - "+type);
 		return organzDao.selectOrganzInfo(map);
 	}
 
@@ -110,10 +109,8 @@ public class OrganzService {
 			if(cdlist.get(i).equals("-1")) {
 				continue;
 			}
-			System.out.println(lastId+"-"+cdlist);
 			codeVo.setOrgnzNo(id.longValue());
 			codeVo.setCdId(cdlist.get(i));
-			System.out.println(codeVo.getCdId());
 			organzDao.setOgranzInfo(codeVo);
 		}
 	}

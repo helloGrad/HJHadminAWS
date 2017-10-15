@@ -140,7 +140,6 @@ public class NotiController {
 		NotiVo vo = notiService.getNoti(tabnm, no);
 
 		model.addAttribute("fileList", apndngFileService.getFileList(vo.getSlctnNotiNo().intValue(), "모집공고"));
-		System.out.println(apndngFileService.getFileList(vo.getSlctnNotiNo().intValue(), "모집공고"));
 		model.addAttribute("vo", vo);
 
 		JSONArray jsonArray = new JSONArray();
@@ -214,8 +213,12 @@ public class NotiController {
 		
 
 		notiService.updateNoti(tabnm, notiVo);
-
-		return "redirect:/noti/list";
+		if(tabnm.equals("grad")) {
+			return "redirect:/noti/grad";
+		}else {
+			return "redirect:/noti/lab";
+		}
+		
 	}
 
 }

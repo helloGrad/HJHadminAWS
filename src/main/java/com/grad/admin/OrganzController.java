@@ -142,7 +142,6 @@ public class OrganzController {
 		if (organzVo.getOrgnzDstnct().equals("연구실")) {
 
 			if (resrchAcrsltVo.getResrchText() == null) {
-				System.out.println("연구실 입력");
 				organzService.insertLab(organzVo);
 			}
 
@@ -204,10 +203,6 @@ public class OrganzController {
 		model.addAttribute("codeList1", codeList1);
 		model.addAttribute("codeList2", codeList2);
 		model.addAttribute("codeList3", codeList3);
-		System.out.println(codeList);
-		System.out.println(codeList1);
-		System.out.println(codeList2);
-		System.out.println(codeList3);
 
 		JSONArray jsonArray = new JSONArray();
 		model.addAttribute("codeList", jsonArray.fromObject(codeList));
@@ -216,7 +211,6 @@ public class OrganzController {
 		model.addAttribute("codeList3", jsonArray.fromObject(codeList3));
 
 		
-		System.out.println(no+" "+codeList3);
 		
 		if (type.equals("연구실")) {
 
@@ -242,16 +236,10 @@ public class OrganzController {
 			@RequestParam(value = "cdlist", required = true, defaultValue = "") List<String> cdlist,
 			@ModelAttribute("codeForm") CodeForm codeForm) {
 
-
-//		System.out.println(organzVo.getOrgnzNo()+" codeForm : " + codeForm);
-		System.out.println(organzVo.getOrgnzNo()+" cdlist : " + cdlist);
-
 		List<String> infoList = new ArrayList<String>();
 		List<String> gradinfoList = new ArrayList<String>();
 
 		int index = 0;
-
-		
 		/*
 		 * 연구실 연구분야 리스크, 학과/학부 전공코드 1개 
 		 */
@@ -264,7 +252,6 @@ public class OrganzController {
 				} else {
 
 					infoList.add(index, codeForm.getCodes().get(i).getCdId());
-					System.out.println("-1이 들어간다?");
 					index++;
 				}
 			}
@@ -296,13 +283,8 @@ public class OrganzController {
 				}
 			}			
 		}
-		
-//		System.out.println(infoList);
 
 		if (cdlist.size() != 0 || codeForm.getCodes() != null || codeForm.getCodes2() != null) {
-			
-			
-			System.out.println("쿼리 두개 중에 하나는 존재");
 			
 			organzService.deleteOrganzInfo(organzVo.getOrgnzNo());
 			organzService.setOrganzInfo(organzVo.getOrgnzNo(), infoList);
@@ -342,7 +324,17 @@ public class OrganzController {
 			if (type.equals("연구실")) {
 				organzService.deleteOrganzInfo2(organzVo.getOrgnzNo(), "연구실");
 			}
-			return "redirect:/organz/list";
+			if(type.equals("대학교")) {
+				return "redirect:/organz/unilist";
+			}else if(type.equals("대학원")) {
+				return "redirect:/organz/gradlist";
+				
+			}else if(type.equals("학과")) {
+				return "redirect:/organz/deptlist";
+			}else {
+				return "redirect:/organz/list";
+			}
+			
 		}
 	}
 
