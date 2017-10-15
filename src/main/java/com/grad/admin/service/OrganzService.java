@@ -106,8 +106,14 @@ public class OrganzService {
 		Integer id = lastId;
 
 		for (int i = 0; i < cdlist.size(); i++) {
+			
+			if(cdlist.get(i).equals("-1")) {
+				continue;
+			}
+			System.out.println(lastId+"-"+cdlist);
 			codeVo.setOrgnzNo(id.longValue());
 			codeVo.setCdId(cdlist.get(i));
+			System.out.println(codeVo.getCdId());
 			organzDao.setOgranzInfo(codeVo);
 		}
 	}

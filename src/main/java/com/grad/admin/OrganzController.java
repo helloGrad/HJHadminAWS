@@ -243,7 +243,7 @@ public class OrganzController {
 			@ModelAttribute("codeForm") CodeForm codeForm) {
 
 
-		System.out.println(organzVo.getOrgnzNo()+" codeForm : " + codeForm);
+//		System.out.println(organzVo.getOrgnzNo()+" codeForm : " + codeForm);
 		System.out.println(organzVo.getOrgnzNo()+" cdlist : " + cdlist);
 
 		List<String> infoList = new ArrayList<String>();
@@ -264,6 +264,16 @@ public class OrganzController {
 				} else {
 
 					infoList.add(index, codeForm.getCodes().get(i).getCdId());
+					System.out.println("-1이 들어간다?");
+					index++;
+				}
+			}
+		}
+		
+		if(cdlist.size()!=0) {
+			for(int i=0;i<cdlist.size();i++) {
+				if(cdlist.get(i)!=null && cdlist.get(i)!="" && cdlist.get(i)!="-1") {
+					infoList.add(index, cdlist.get(i));
 					index++;
 				}
 			}
@@ -287,7 +297,7 @@ public class OrganzController {
 			}			
 		}
 		
-		System.out.println(infoList);
+//		System.out.println(infoList);
 
 		if (cdlist.size() != 0 || codeForm.getCodes() != null || codeForm.getCodes2() != null) {
 			

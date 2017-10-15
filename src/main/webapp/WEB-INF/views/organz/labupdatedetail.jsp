@@ -60,10 +60,10 @@
 										+ codeList3[i].cdId
 										+ "\");' class='btn'>X</button>"
 										+ "<input type='hidden' name='codes["
-										+ index2 + "].cdId' value='"
+										+ index + "].cdId' value='"
 										+ codeList3[i].cdId + "'>"
 										+ "<input type='hidden' name='codes["
-										+ index2 + "].cdNm' value='"
+										+ index + "].cdNm' value='"
 										+ codeList3[i].cdNm + "'>"
 										+ "</div>")
 										index++;
