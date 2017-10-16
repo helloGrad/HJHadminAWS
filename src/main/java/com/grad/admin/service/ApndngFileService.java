@@ -46,8 +46,6 @@ public class ApndngFileService {
 			awsService.uploadFile(new File(SAVE_PATH+"/"+saveFileName));
 			
 			
-			System.out.println("apnding" + SAVE_PATH+"/"+saveFileName);
-//			url = PREFIX_URL + saveFileName;
 			url = "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-563282106598/grad-image/" + saveFileName;
 			
 			setFileVo(orginalFileName, fileSize, extName, url, saveFileName);

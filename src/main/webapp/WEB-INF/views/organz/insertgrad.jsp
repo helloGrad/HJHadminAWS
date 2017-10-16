@@ -194,14 +194,14 @@
                                         <br>
                                         <div class="ui-widget">
                                             <label for="tags">학과/학부코드 : </label>
-                                            <input class="w3-input" id="tags">
+                                            <input class="w3-input" id="tags" required>
                                             <div id="duplicateMsg" style="display: none">중복입니다 !!</div>
                                             <div id="cdNmList"></div>
                                         </div>
                                         <br>
                                         <div class="ui-widget">
                                             <label for="tags2">세부전공코드 : </label>
-                                            <input class="w3-input" id="tags2">
+                                            <input class="w3-input" id="tags2" required>
                                             <div id="duplicateMsg2" style="display: none">중복입니다 !!</div>
                                             <div id="cdNmList2"></div>
                                         </div>

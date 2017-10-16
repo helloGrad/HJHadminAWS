@@ -213,7 +213,7 @@
 						</div>
 						
 						<div class="ui-widget">
-							<label for="tags">▣학문코드</label> <br> <input id="tags">
+							<label for="tags">▣학문코드</label> <br> <input id="tags" required>
 							<div id="duplicateMsg" style="display: none">중복입니다 !!</div>
 							<div id="cdNmList"></div>
 						</div>

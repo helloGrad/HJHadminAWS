@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
 
 <div class="w3-top">
     <div class="w3-bar w3-border logo w3-text-white">
@@ -22,4 +20,3 @@
     </div>
 </div>
 
-</html>

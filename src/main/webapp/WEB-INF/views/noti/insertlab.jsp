@@ -246,9 +246,8 @@
                                 <div class="checkbox w3-margin-bottom">
                                     <label class="w3-button w3-block w3-border w3-border-blue w3-round"
                                            for="checkbox-9">
-                                        <input class="w3-hide" name="resrchTaskJoingYn" type="checkbox" value="Y"
-                                               id="checkbox-9">연구
-                                        과제 참가 여부
+                                        <input name="resrchTaskJoingYn" type="checkbox" value="Y"
+                                               id="checkbox-9">연구 과제 참가 여부
                                     </label>
                                 </div>
                                 <div class="checkbox w3-margin-bottom">

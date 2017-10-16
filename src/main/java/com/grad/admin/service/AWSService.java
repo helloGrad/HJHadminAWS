@@ -36,7 +36,6 @@ public class AWSService {
                 
                 putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead); // file permission
                 amazonS3.putObject(putObjectRequest); // upload file
-                System.out.println("aws - " + BUCKET_NAME + "/grad-image"/*sub directory*/+file.getName() );
             } catch (AmazonServiceException ase) {
                 ase.printStackTrace();
             } finally {
@@ -44,7 +43,6 @@ public class AWSService {
                 
             }
         }else {
-        	System.out.println("아마존 실패");
         }
     }
 }

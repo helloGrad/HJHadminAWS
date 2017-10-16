@@ -149,7 +149,7 @@
 							<div class="form-group">
 
 								<div class="ui-widget">
-									<label for="tags">▣ 전공분야</label> <br> <input id="tags">
+									<label for="tags">▣ 전공분야</label> <br> <input id="tags" required>
 									<div id="duplicateMsg" style="display: none">중복입니다 !!</div>
 									<div id="cdNmList"></div>
 								</div>

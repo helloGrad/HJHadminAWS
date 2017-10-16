@@ -41,7 +41,7 @@ var clickCharBtn = function(){
 			for(var i = 0 ; i<response.data.length ; i++){
 				
 				$("#fetchList").append("<li class=''> " + 
-				" <a href='/admin/noti/update?no=" + response.data[i].slctnNotiNo +"&type="+response.data[i].slctnNotiDstnct+"'>" +
+				" <a href='/admin/noti/update?no=" + response.data[i].slctnNotiNo +"&tabnm="+response.data[i].slctnNotiDstnct+"'>" +
     			" <span class='w3-medium'><b>"+response.data[i].orgnzFullNm+"</b>"+response.data[i].slctnTitle+"</span> </a>" +
     			" </li>");
 			}

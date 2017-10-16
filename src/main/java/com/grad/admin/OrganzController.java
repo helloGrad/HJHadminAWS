@@ -127,7 +127,7 @@ public class OrganzController {
 		ApndngFileVo vo = null;
 
 		List<String> infoList = new ArrayList<String>();
-
+		
 		if (codeForm.getCodes().get(0).getCdId().equals("-1") && codeForm.getCodes2().get(0).getCdId().equals("-1")) {
 
 		} else {
